@@ -1,0 +1,43 @@
+.np {
+  height: 50px;
+  margin-bottom: 20px;
+}
+.np .n {
+  width: 40%;
+  float: right;
+  right: 0px;
+  top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.np .n a {
+  color: #00C1FB;
+  text-decoration: none;
+}
+.np .n a:hover {
+  color: #00c1fb;
+}
+.np .p {
+  width: 40%;
+  float: left;
+  left: 0px;
+  top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.np .p a {
+  color: #00C1FB;
+  text-decoration: none;
+}
+.np .p a:hover {
+  color: #00c1fb;
+}
+#index {
+  color: black;
+  text-decoration: none;
+}
+#index:hover {
+  color: #00c1fb;
+}

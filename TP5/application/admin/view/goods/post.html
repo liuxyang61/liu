@@ -1,0 +1,291 @@
+{extend name="commont" }
+{block name="commont"}
+
+<div class=" admin-content">
+
+  <div class="daohang">
+    <ul>
+      <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs"> 首页</button></li>
+      <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">帮助中心<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
+      <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">奖金管理<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
+      <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">产品管理<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
+    </ul>
+  </div>
+
+
+
+
+  <div class="admin-biaogelist"  >
+
+    <div class="listbiaoti am-cf">
+      <ul class="am-icon-flag on">商品名称</ul>
+
+      <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#">添加商品</a></dl>
+
+
+
+    </div>
+    <div class="fbneirong" >
+
+      <form class="am-form" action="" method="post" onsubmit="return post(event)">
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品名称</div>
+          <div class="you">
+            <input type="text" class="am-input-sm" name="goods_name" value="{$oldData['goods_name']?:'';}">
+          </div>
+        </div>
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品分类</div>
+          <div class="you">
+            <select name="category_category_id">
+              <option selected value="0">请选择分类</option>
+              {volist name="cateData" id="vo"}
+              <option {if condition="$oldData['category_category_id']==$vo['category_id']"}selected{/if} value="{$vo['category_id']}"> {$vo['_category_name']}</option>
+              {/volist}
+            </select>
+          </div>
+        </div>
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品价格</div>
+          <div class="you" >
+            <input   type="number" name="goods_price" value="{$oldData['goods_price']?:'';}">
+          </div>
+        </div>
+
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品列表图：</div>
+          <div class="you" style="height: 45px;">
+            <div class="input-group">
+              <input type="file" name="" id="file_upload_1"/>
+              <div class="input-group-btn">
+                <script>
+                    //                                uploadify上传插件
+                    $(function () {
+                        $("#file_upload_1").uploadify({
+                            'removeTimeout': 0.1,//进度条时间
+                            height: 30,
+                            'uploadLimit': 999,//上传数量限制
+                            swf: '__STATIC__/uploadify/uploadify.swf',
+                            uploader: "{:url('uploader')}",
+                            width: 120,
+                            buttonClass: 'red',
+                            buttonText: '请选择文件',
+                            'onUploadSuccess': function (file, data, response) {
+                                var li = "<li>"
+                                li += "<img  src='__STATIC__/../" + data + "'/>";
+                                li +='<a href="javascript: void(0)" onclick="delImg(this)" path="'+data+'" class="am-close am-close-spin" data-am-modal-close="">×</a>';
+                                li += "<input type='hidden' name='goods_thumb' value='" + data + "'>";
+                                li += "</li>";
+                                $(li).appendTo('#listBox2');
+                            }
+                        });
+                    });
+                </script>
+              </div>
+            </div>
+          </div>
+          <div  id="listBox2">
+            {if condition="($oldData['goods_id']!==-1)"}
+            <li>
+              <img src="__STATIC__/../{$oldData['goods_thumb']}" alt="">
+              <a href="javascript: void(0)" onclick="delImg(this)" path="{$oldData['goods_thumb']}" class="am-close am-close-spin" data-am-modal-close="">×</a>
+              <input type="hidden" name="goods_thumb" value="{$oldData['goods_thumb']}">
+            </li>
+            {/if}
+          </div>
+
+        </div>
+
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品图册：</div>
+          <div class="you" style="height: 45px;">
+            <div class="input-group">
+              <input type="file" name="" id="file_upload"/>
+              <div class="input-group-btn">
+                <script>
+                    //                                uploadify上传插件
+                    $(function () {
+                        $("#file_upload").uploadify({
+                            'removeTimeout': 0.1,//进度条时间
+                            height: 30,
+                            'uploadLimit': 20,//上传数量限制
+                            swf: '__STATIC__/uploadify/uploadify.swf',
+                            uploader: "{:url('uploader')}",
+                            width: 120,
+                            buttonClass: 'red',
+                            buttonText: '请选择文件',
+                            'onUploadSuccess': function (file, data, response) {
+                                var li = "<li>"
+                                li += "<img  src='__STATIC__/../" + data + "'/>";
+                                li +='<a href="javascript: void(0)" onclick="delImg(this)" path="'+data+'" class="am-close am-close-spin" data-am-modal-close="">×</a>';
+                                li += "<input type='hidden' name='goods_src[]' value='" + data + "'>";
+                                li += "</li>";
+                                $(li).appendTo('#listBox');
+                            }
+                        });
+                    });
+                </script>
+                <!--删除图片方法-->
+                <script>
+                    function delImg(obj) {
+//                        alert($(obj).attr('path'));
+                                $(obj).parents('li').remove();
+                    }
+                </script>
+              </div>
+            </div>
+          </div>
+          <div  id="listBox">
+            {if condition="($oldData['goods_id']!==-1)"}
+            <?php foreach(explode('|',$oldData['goods_src']) as $vo){?>
+            <li>
+              <img src="__STATIC__/../{$vo}" alt="">
+              <a href="javascript: void(0)" onclick="delImg(this)" path="{$vo}" class="am-close am-close-spin" data-am-modal-close="">×</a>
+              <input type="hidden" name="goods_src[]" value="{$vo}">
+            </li>
+            <?php } ?>
+            {/if}
+          </div>
+        </div>
+        <!--商品图册结束-->
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品库存</div>
+          <div class="you">
+            <input type="number" name="goods_total" value="{$oldData['goods_total']?:'';}">
+          </div>
+        </div>
+
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品颜色</div>
+          <div class="you">
+            <textarea name="goods_color" cols="30" rows="3">{$oldData['goods_color']?:'';}</textarea>
+            <span style="color: #cccccc;">请按照：红色|白色|蓝色  输入</span>
+          </div>
+        </div>
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品尺寸</div>
+          <div class="you">
+            <textarea name="goods_size" cols="30" rows="3">{$oldData['goods_size']?:'';}</textarea>
+            <span style="color: #cccccc;">请按照：s|l|xl|xxl  输入</span>
+          </div>
+        </div>
+
+        <!--隐藏域，因为异步修改需要在异步提交post的时候将id传过去-->
+        <input type="hidden" name="goods_id" value="{:input('param.goods_id')}">
+
+        <!--编辑器js-->
+        <script src="__STATIC__/ueditor1_4_3/ueditor.config.js"></script>
+        <script src="__STATIC__/ueditor1_4_3/ueditor.all.js"></script>
+        <div class="am-form-group am-cf">
+          <div class="zuo">商品详情</div>
+          <div class="col-sm-10">
+            <textarea id="container" name="goods_describe" style="height:300px;width:100%;padding-left: 11%;padding-right: 19%;">{$oldData['goods_describe']}</textarea>
+            <script>
+                var ue = UE.getEditor('container');
+            </script>
+          </div>
+        </div>
+
+        <!--添加按钮-->
+        <div class="am-form-group am-cf">
+          <div class="you" style="margin-left: 11%;margin-top: 5%">
+            <button type="submit" class="am-btn am-btn-success am-radius">添加商品</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+    <div class="foods">
+      <ul>
+        版权所有@2015. 模板收集自 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> -  More Templates<a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+      </ul>
+      <dl>
+        <a href="" title="返回头部" class="am-icon-btn am-icon-arrow-up"></a>
+      </dl>
+    </div>
+  </div>
+
+</div>
+<script src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+<link rel="stylesheet" href="__STATIC__/uploadify/uploadify.css">
+<script src=""></script>
+<style>
+  #listBox{
+    display: block;
+    width:85%;
+    padding-left: 120px;
+  }
+  #listBox2{
+    display: block;
+    width:85%;
+    padding-left: 120px;
+  }
+  #listBox li {
+    position: relative;
+    left:0;
+    top:0;
+    display: block;
+    list-style: none;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 5px;
+  }
+  #listBox li .am-close{
+    position: absolute;
+    top:0;
+    left:100%;
+  }
+  #listBox2 li .am-close{
+    position: absolute;
+    top:0;
+    left:100%;
+  }
+  #listBox2 li {
+    position: relative;
+    left:0;
+    top:0;
+    display: block;
+    list-style: none;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 5px;
+  }
+
+  #listBox li img {
+    width: 150px;
+    heigt:400px;
+  }
+  #listBox2 li img {
+    width: 150px;
+    heigt:400px;
+  }
+</style>
+<script src="__STATIC__/layer/layer.js"></script>
+<script>
+
+    function post(event) {
+        //阻止表单默认行为
+        event.preventDefault();
+//        var goods_id = <?php echo input( 'param.goods_is')?>;
+        //__URL__当前地址
+        //序列化抓取表单数据
+        var data = $('form').serialize();
+        //post方式进行异步请求
+        $.post("{:url('post')}",data,function(res){
+//            alert(res.message);
+            if(res.valid){
+                // alert(1);
+                //信息框-例4
+                //操作成功
+                layer.msg(res.message);
+                setTimeout(location.href="{:url('goodslist')}",3000)
+
+            }else{
+                //操作失败
+                layer.msg(res.message);
+            }
+        },'json')
+    }
+</script>
+
+{/block}

@@ -1,0 +1,112 @@
+{extend name="commont" }
+{block name="commont"}
+
+
+
+<div class=" admin-content">
+
+    <div class="daohang">
+        <ul>
+            <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs"> 首页</button></li>
+            <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">帮助中心<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
+            <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">奖金管理<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
+            <li><button type="button" class="am-btn am-btn-default am-radius am-btn-xs">产品管理<a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button></li>
+        </ul>
+    </div>
+
+
+
+
+    <div class="admin-biaogelist"  >
+
+        <div class="listbiaoti am-cf">
+            <ul class="am-icon-flag on">添加分类</ul>
+
+            <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="#">添加分类</a></dl>
+
+
+
+        </div>
+        <div class="fbneirong" >
+
+            <form class="am-form" action="" method="post" onsubmit="return post(event)">
+                <div class="am-form-group am-cf">
+                    <div class="zuo">分类名称</div>
+                    <div class="you">
+                        <input type="text" class="am-input-sm" name="category_name" value="{$model['category_name']}">
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">所属分类</div>
+                    <div class="you">
+                        <select name="cate_pid">
+                            <option selected value="0">顶级分类</option>
+                            {volist name="cateData" id="vo"}
+                            <option value="{$vo['category_id']}">{$vo['_category_name']}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="zuo">分类排序</div>
+                    <div class="you">
+                        <input type="number" class="am-input-sm" name="category_sort" value="{$model['category_sort']}">
+                    </div>
+                </div>
+                <input type="hidden" name="category_id" value="{:input('param.category_id')}">
+                <div class="am-form-group am-cf">
+                    <div class="zuo">分类描述</div>
+                    <div class="you">
+                        <textarea name="category_describe"  cols="20" rows="5">{$model['category_describe']}</textarea>
+                    </div>
+                </div>
+                <div class="am-form-group am-cf">
+                    <div class="you" style="margin-left: 11%;">
+                        <button type="submit" class="am-btn am-btn-success am-radius">添加分类</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="foods">
+            <ul>
+                版权所有@2015. 模板收集自 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> -  More Templates<a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+            </ul>
+            <dl>
+                <a href="" title="返回头部" class="am-icon-btn am-icon-arrow-up"></a>
+            </dl>
+        </div>
+    </div>
+
+</div>
+
+<!--图片上传ajax-->
+<script src="__STATIC__/layer/layer.js"></script>
+<script>
+
+    function post(event) {
+        //阻止表单默认行为
+        event.preventDefault();
+//        var goods_id = <?php echo input( 'param.goods_is')?>;
+        //__URL__当前地址
+        //序列化抓取表单数据
+        var data = $('form').serialize();
+        //post方式进行异步请求
+        $.post("{:url('post')}",data,function(res){
+//            alert(res.message);
+            if(res.valid){
+                // alert(1);
+                //信息框-例4
+                //操作成功
+                layer.msg(res.message);
+                setTimeout(location.href="{:url('index')}",3000)
+
+            }else{
+                //操作失败
+                layer.msg(res.message);
+            }
+        },'json')
+    }
+</script>
+
+{/block}

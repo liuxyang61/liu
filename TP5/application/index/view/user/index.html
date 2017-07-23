@@ -1,0 +1,33 @@
+{extend name="common"}
+{block name="common"}
+<div id="content" >
+    <div class="ordercontent main">
+        <div class="orderleft" style="border: 1px solid #DDDDDD">
+            <div class="ordertitle">
+                <h1>个人中心</h1>
+                <ul>
+                    <li>
+                        <a href="{:url('/index/user/index')}">个人信息<span>&gt;</span></a>
+                    </li>
+                    <li>
+                        <a href="{:url('index/user/orders')}">我的订单<span>&gt;</span></a>
+                    </li>
+                    <li >
+                        <a href="{:url('/index/address/index')}">管理地址<span>&gt;</span></a>
+                    </li>
+                    <li>
+                        <a href="{:url('/index/address/post')}">添加地址<span>&gt;</span></a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="orderright" style="width: 990px;border: 1px solid #DDDDDD;padding:0 10px 0 ;">
+            <div class="orderlist">
+                <h2>欢迎:{$userInfo['user_name']}</h2>
+                <img width="100%" src="__STATIC__/home/images/user.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

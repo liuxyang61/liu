@@ -1,0 +1,43 @@
+﻿
+<extend file='template/web/bolg/common.html'/>
+<link rel="stylesheet" href="{{__TEMPLATE__}}/assets/css/content.css">
+<block name="content">
+
+    <!--自定义了一个面包屑导航-->
+    <div class="alert">
+        <div class="input-group col-sm-3" style="float: left;left:0px;">
+            当前位置-->
+            <a id="index"  href="{{__ROOT__}}">首页</a>
+            --><span style="color: #0b1418;" >文章内容</span>
+        </div>
+        <form action="{{url('admin.search','search')}}" method="POST" role="form">
+            <div class="input-group col-sm-3" style="float: right;right: -6px;">
+                <input style="width: 78%;" type="text" class="form-control" name="search_name" placeholder="请输入搜索">
+                <button style="width:20%;height:34px;" type="submit" class="input-group-addon">搜索</button>
+            </div>
+        </form>
+    </div>
+    <!--左侧文章部分-->
+    <div class="col-md-8 "  >
+        <!--获取文章数据-->
+
+        <div class="blog-post" >
+            <!--标题-->
+            <p style="text-align: center;font-size: 24px;line-height: 2em;">{{$data['arc_title']}}</p>
+            <!--作者-->
+            <span>作者: {{$data['arc_author']}}</span>
+            <!--发布时间-->
+            <span style="float:right;">发布时间：{{$data['created_at']}} </span>
+            <hr>
+            <!--文章内容-->
+            <!--图片-->
+            <img style="display: block;margin: 0 auto;width: 70%; "  src="{{$data['arc_thumb']}}" alt="">
+            <p>{{$data['arc_content']}}</p>
+        </div>
+        <div class="np">
+            <p class="n">上一篇：<prev/></p>
+            <p class="p">下一篇：<next/></p>
+        </div>
+    </div>
+    <!--左侧文章部分结束-->
+</block>

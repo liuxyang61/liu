@@ -1,0 +1,391 @@
+{extend name="common"}
+{block name="common"}
+<div id="content">
+
+    <div class="cont">
+        <div class="main">
+            <div class="content-left">
+                <div class="box">
+                    <div class="zhezhao"></div>
+                    <div class="sekuai"></div>
+                    <div class="smallTu"></div>
+                    <a href="javascript:;" class="shang">&lt;</a>
+                    <div class="list1">
+                        <ul>
+                            {volist name="goodsDate['goods_src']" id="vo"}
+                            <li><img src="__STATIC__/../{$vo}" alt=""></li>
+                            {/volist}
+                        </ul>
+                    </div>
+                    <a href="javascript:;" class="xia">&gt;</a>
+                    <div class="bgTu"></div>
+                    <div class="bgTuHide">
+                        <ul>
+                            {volist name="goodsDate['goods_src']" id="vo"}
+                            <li><img src="__STATIC__/../{$vo}" alt=""></li>
+                            {/volist}
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="content-right">
+                <div class="tit" style="font-size: 20px;line-height: 1.5em">{$goodsDate['goods_name']}</div>
+                <div class="pirve">￥ {$goodsDate['goods_price']} 元</div>
+                <div class="category">
+                    <h4>颜色</h4>
+                    <ul>
+                        {volist name="goodsDate['goods_color']" id='vo'}
+                        <li>{$vo}</li>
+                        {/volist}
+                    </ul>
+                </div>
+                <div class="category">
+                    <h4>尺寸</h4>
+                    <ul>
+                        {volist name="goodsDate['goods_size']" id='vo'}
+                        <li>{$vo}</li>
+                        {/volist}
+                    </ul>
+                </div>
+                <style>
+                    .hui{
+                        background: #666666;
+                    }
+                </style>
+                <div class="num">
+                    <h5>剩余库存</h5>
+                    <h5>{$goodsDate['goods_total']}</h5>
+                </div>
+                <div class="num">
+                    <h5>数量</h5>
+                    <a href="javascript:;" class="num_l">-</a>
+                    <input type="text" value="1" />
+                    <a href="javascript:;" class="num_r">+</a>
+                </div>
+                <div class="nobdr">
+                    <h6><a href="javascript:;" class="hui">加入购物车</a></h6>
+
+                </div>
+                <script>
+                    $(function () {
+                        $('.nobdr h6 a').click(function(){
+                            if($(this).is('.hui')){
+                                layer.msg('请选择规格',function(){
+
+                                })
+                                return false;
+                            }
+                            var options='';
+                                $('.zhong').each(function(k,v){
+                                options +=$(this).text() + '|';
+                            })
+
+                            var data={
+                                goods_id:  "{:input('param.goods_id')}",
+                                goods_name:"{$goodsDate['goods_name']}",
+                                num:$('.num').find('input').val(),
+                                price:"{$goodsDate['goods_price']}",
+                                options:options,
+                                img:"{$goodsDate['goods_thumb']}",
+                            };
+                            //进行业务逻辑,加入购物车
+                            $.post("{:url('index/cart/addCart')}",data,function(res){
+//                                location.href = "{:url('index/cart/index')}";
+//                                alert(res.valid);
+                                if(res.valid==1){
+                                    layer.msg(res.message,{
+                                        time:0,//不自动关闭
+                                        btn:['确定','取消'],
+                                        yes:function(index){
+                                            setTimeout(location.href="{:url('index/cart/index')}",2000);
+                                        }
+                                    })
+                                }else{
+                                    layer.msg('添加失败！');
+                                }
+                            },'json')
+
+                        })
+                    })
+                </script>
+                <div class="houdun">
+                    <h3>保障</h3>
+                    <p><i class="o1"></i>360商城发货&售后</p>
+                    <p><i class="o2"></i>满99元包邮</p>
+                    <p><i class="o3"></i>7天无理由退货</p>
+                    <p><i class="o4"></i>15天免费换货</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="desc" id="xijie">
+        <div class="desctab" >
+            <div class="main">
+                <ul>
+                    <li><a href="#xijie">产品详情</a><span>|</span></li>
+                    <li><a href="#guige">规格参数</a><span>|</span></li>
+                    <li><a href="#wenti">常见问题</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="con describe" >
+            {$goodsDate['goods_describe']}
+        </div>
+        <div class="con main" id="guige">
+            <h1>产品参数</h1>
+            <table cellpadding="0" cellspacing="0" border="1">
+                <tbody>
+                <tr>
+                    <td class="wd207" colspan="2">主体</td>
+                </tr>
+                <tr>
+                    <td class="wd207">品牌</td>
+                    <td>360手机</td>
+                </tr>
+                <tr>
+                    <td class="wd207">型号</td>
+                    <td>1509-A00（Q5 Plus)</td>
+                </tr>
+                <tr>
+                    <td class="wd207">上市时间</td>
+                    <td>2016年8月</td>
+                </tr>
+                <tr>
+                    <td class="wd207" colspan="2">基本信息</td>
+                </tr>
+                <tr>
+                    <td class="wd207">机身颜色</td>
+                    <td>流光金</td>
+                </tr>
+                <tr>
+                    <td class="wd207">机身尺寸（mm）</td>
+                    <td>156.5*80*8.3</td>
+                </tr>
+                <tr>
+                    <td class="wd207">机身重量（g）</td>
+                    <td>175.0g</td>
+                </tr>
+                <tr>
+                    <td class="wd207" colspan="2">操作系统</td>
+                </tr>
+                <tr>
+                    <td class="wd207">操作系统</td>
+                    <td>360 OS Android 6.0</td>
+                </tr>
+                <tr>
+                    <td class="wd207" colspan="2">主芯片</td>
+                </tr>
+                <tr>
+                    <td class="wd207">CPU型号</td>
+                    <td>骁龙820</td>
+                </tr>
+                <tr>
+                    <td class="wd207">CPU频率</td>
+                    <td>Kryo 2.15GHz x 4</td>
+                </tr>
+                <tr>
+                    <td class="wd207" colspan="2">网络支持</td>
+                </tr>
+                <tr>
+                    <td class="wd207">双卡机类型</td>
+                    <td>双卡双待单通</td>
+                </tr>
+                <tr>
+                    <td class="wd207">SIM卡类型</td>
+                    <td>Nano SIM</td>
+                </tr>
+                <tr>
+                    <td class="wd207">网络制式</td>
+                    <td>全网通</td>
+                </tr>
+                <tr>
+                    <td class="wd207" colspan="2">存储</td>
+                </tr>
+                <tr>
+                    <td class="wd207">ROM</td>
+                    <td>128GB UFS2.0 机身存储</td>
+                </tr>
+                <tr>
+                    <td class="wd207">RAM</td>
+                    <td>4GB LPDDR4 双通道内存</td>
+                </tr>
+                <tr>
+                    <td class="wd207">存储卡</td>
+                    <td>支持MicroSD（TF）</td>
+                </tr>
+                <tr>
+                    <td class="wd207" colspan="2">屏幕</td>
+                </tr>
+                <tr>
+                    <td class="wd207">主屏幕尺寸（英寸）</td>
+                    <td>6.0英寸</td>
+                </tr>
+                <tr>
+                    <td class="wd207">分辨率</td>
+                    <td>1920*1080(FHD)</td>
+                </tr>
+                <tr>
+                    <td class="wd207">屏幕材质类型</td>
+                    <td>三星（SAMSUNG）Super AMOLED</td>
+                </tr>
+                <tr>
+                    <td class="wd207">屏幕色彩</td>
+                    <td>1600万</td>
+                </tr>
+                <tr>
+                    <td class="wd207" colspan="2">前置摄像头</td>
+                </tr>
+                <tr>
+                    <td class="wd207">前置摄像头</td>
+                    <td>1300万像素</td>
+                </tr>
+                <tr>
+                    <td class="wd207">前摄光圈大小</td>
+                    <td>f/2.0</td>
+                </tr>
+                <tr>
+                    <td class="wd207">美颜技术</td>
+                    <td>支持</td>
+                </tr>
+                <tr>
+                    <td class="wd207">拍照特点</td>
+                    <td>美颜</td>
+                </tr>
+                <tr>
+                    <td class="wd207" colspan="2">后置摄像头</td>
+                </tr>
+                <tr>
+                    <td class="wd207">后置摄像头</td>
+                    <td>双1300万像素</td>
+                </tr>
+                <tr>
+                    <td class="wd207">摄像头光圈大小</td>
+                    <td>f/2.0</td>
+                </tr>
+                <tr>
+                    <td class="wd207">闪光灯</td>
+                    <td>LED灯</td>
+                </tr>
+                <tr>
+                    <td class="wd207">美颜技术</td>
+                    <td>支持</td>
+                </tr>
+                <tr>
+                    <td class="wd207" colspan="2">电池信息</td>
+                </tr>
+                <tr>
+                    <td class="wd207">电池容量（mAh）</td>
+                    <td>3700</td>
+                </tr>
+                <tr>
+                    <td class="wd207">电池是否可拆卸</td>
+                    <td>否</td>
+                </tr>
+                <tr>
+                    <td class="wd207">闪充</td>
+                    <td>支持QC3.0涡轮闪充</td>
+                </tr>
+                <tr>
+                    <td class="wd207" colspan="2">娱乐功能</td>
+                </tr>
+                <tr>
+                    <td class="wd207">mic数量</td>
+                    <td>2个</td>
+                </tr>
+                <tr>
+                    <td class="wd207">喇叭数量</td>
+                    <td>1个</td>
+                </tr>
+                <tr>
+                    <td class="wd207" colspan="2">数据接口</td>
+                </tr>
+                <tr>
+                    <td class="wd207">数据传输接口</td>
+                    <td>WIFI、蓝牙、WiFi热点、OTG接口</td>
+                </tr>
+                <tr>
+                    <td class="wd207">NFC/NFC模式</td>
+                    <td>不支持</td>
+                </tr>
+                <tr>
+                    <td class="wd207">耳机接口类型</td>
+                    <td>3.5mm</td>
+                </tr>
+                <tr>
+                    <td class="wd207">充电接口类型</td>
+                    <td>Type-C</td>
+                </tr>
+                <tr>
+                    <td class="wd207" colspan="2">手机特性</td>
+                </tr>
+                <tr>
+                    <td class="wd207">指纹识别</td>
+                    <td>支持</td>
+                </tr>
+                <tr>
+                    <td class="wd207">GPS</td>
+                    <td>支持</td>
+                </tr>
+                <tr>
+                    <td class="wd207">电子罗盘</td>
+                    <td>支持</td>
+                </tr>
+                <tr>
+                    <td class="wd207">霍尔感应器</td>
+                    <td>支持</td>
+                </tr>
+                <tr>
+                    <td class="wd207">陀螺仪</td>
+                    <td>支持</td>
+                </tr>
+                <tr>
+                    <td class="wd207">其他</td>
+                    <td>距离感应、呼吸灯、光线感应</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="con main" id="wenti">
+            <h2>常见问题</h2>
+            <dl>
+                <dt><i>1、</i><em></em>订单提交成功后还可以修改收货信息吗？</dt>
+                <dd><u></u>订单付款之前，您可以进入“我的订单”，在订单详情页内修改收货信息。付款之后将不可修改收货信息。</dd>
+            </dl>
+            <dl>
+                <dt><i>2、</i><em></em>订单提交成功后还可以修改收货信息吗？</dt>
+                <dd><u></u>订单付款之前，您可以进入“我的订单”，在订单详情页内修改收货信息。付款之后将不可修改收货信息。</dd>
+            </dl>
+            <dl>
+                <dt><i>3、</i><em></em>订单提交成功后还可以修改收货信息吗？</dt>
+                <dd><u></u>订单付款之前，您可以进入“我的订单”，在订单详情页内修改收货信息。付款之后将不可修改收货信息。</dd>
+            </dl>
+            <dl>
+                <dt><i>4、</i><em></em>订单提交成功后还可以修改收货信息吗？</dt>
+                <dd><u></u>订单付款之前，您可以进入“我的订单”，在订单详情页内修改收货信息。付款之后将不可修改收货信息。</dd>
+            </dl>
+            <dl>
+                <dt><i>5、</i><em></em>订单提交成功后还可以修改收货信息吗？</dt>
+                <dd><u></u>订单付款之前，您可以进入“我的订单”，在订单详情页内修改收货信息。付款之后将不可修改收货信息。</dd>
+            </dl>
+            <dl>
+                <dt><i>6、</i><em></em>订单提交成功后还可以修改收货信息吗？</dt>
+                <dd><u></u>订单付款之前，您可以进入“我的订单”，在订单详情页内修改收货信息。付款之后将不可修改收货信息。</dd>
+            </dl>
+            <dl>
+                <dt><i>7、</i><em></em>订单提交成功后还可以修改收货信息吗？</dt>
+                <dd><u></u>订单付款之前，您可以进入“我的订单”，在订单详情页内修改收货信息。付款之后将不可修改收货信息。</dd>
+            </dl>
+
+        </div>
+
+
+</div>
+</div>
+
+
+
+
+
+{/block}

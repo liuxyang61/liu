@@ -1,0 +1,47 @@
+﻿
+<extend file='template/web/bolg/common.html'/>
+<block name="content">
+    <!--自定义了一个栏目导航,搜索框-->
+    <div class="alert" >
+        <div class="input-group col-sm-3" style="float: left;left:0px;">
+            当前位置-->
+            <span  id="index" style="color: black;">首页</span>
+        </div>
+        <form action="{{url('admin.search','search')}}" method="POST" role="form">
+            <div class="input-group col-sm-3" style="float: right;right: -6px;">
+                <input style="width: 78%;" type="text" class="form-control" name="search_name" placeholder="请输入搜索">
+                <button style="width:20%;height:34px;" type="submit" class="input-group-addon">搜索</button>
+            </div>
+        </form>
+
+    </div>
+    <!--左侧文章部分-->
+    <div class="col-md-8 " >
+        <!--获取文章数据-->
+        <article row="8">
+            <div class="blog-post" >
+                <!--标题-->
+                <a id="arc_title" href="{{__ROOT__}}/{{$v['arc_id']}}.html">{{$v['arc_title']}}</a>
+                <!--作者-->
+                <span>作者: {{$v['arc_author']}}</span>
+                <!--发布时间-->
+                <span style="float:right;">发布时间：{{$v['created_at']}} </span>
+                <!--文章内容                   -->
+                <p style="font-size: 16px;">{{$v['arc_description']}}</p>
+                <a href="{{__ROOT__}}/{{$v['arc_id']}}.html" class="btn btn-default btn-sm  ">阅读更多<i class="fa fa-angle-right"></i></a>
+            </div>
+        </article>
+        <br />
+        <nav>
+            <ul class="pagination">
+                <!--{{$arcData->links()}}-->
+            </ul>
+        </nav>
+    </div>
+    <!--左侧文章部分结束-->
+
+</block>
+
+
+
+

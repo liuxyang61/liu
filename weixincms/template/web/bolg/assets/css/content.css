@@ -1,0 +1,39 @@
+.np {
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+.np .n {
+  margin-bottom: 30px;
+}
+.np .n a {
+  color: black;
+  text-decoration: none;
+  padding-bottom: 30px;
+}
+.np .n a:hover {
+  color: #00c1fb;
+}
+.np .p {
+  margin-bottom: 30px;
+}
+.np .p a {
+  color: black;
+  text-decoration: none;
+}
+.np .p a:hover {
+  color: #00c1fb;
+}
+#index {
+  color: black;
+  text-decoration: none;
+}
+#index:hover {
+  color: #00c1fb;
+}
+p.f_center {
+  width: 100%;
+}
+p.f_center img {
+  display: block;
+  margin: 0 auto;
+}

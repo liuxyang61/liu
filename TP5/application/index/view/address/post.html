@@ -1,0 +1,89 @@
+{extend name="common"}
+{block name="common"}
+<script src="__STATIC__/index/js/account.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/index/js/area.js" type="text/javascript" charset="utf-8"></script>
+<div id="content" >
+    <div class="ordercontent main">
+        <div class="orderleft" style="border: 1px solid #DDDDDD">
+            <div class="ordertitle">
+                <h1>个人中心</h1>
+                <ul>
+                    <li>
+                        <a href="{:url('/index/user/index')}">个人信息<span>&gt;</span></a>
+                    </li>
+                    <li>
+                        <a href="{:url('index/user/orders')}">我的订单<span>&gt;</span></a>
+                    </li>
+                    <li >
+                        <a href="{:url('/index/address/index')}">管理地址<span>&gt;</span></a>
+                    </li>
+                    <li>
+                        <a href="{:url('/index/address/post')}">添加地址<span>&gt;</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="orderright" style="width: 990px;border: 1px solid #DDDDDD">
+            <div class="orderlist">
+                <h2>管理地址</h2>
+                <form action="" method="post" onsubmit="return post(event)">
+
+                    <div class="address">
+                        <div class="addressname"><span>收货人姓名:</span>
+                            <input type="text" placeholder="请输入收货人姓名" name="ress_name" value="{$model['ress_name']}"   /></div>
+                        <script>
+                            $(function(){
+                                area.init('area');
+                                //选中效果
+                                area.selected("{$model['ress_city']}","{$model['ress_county']}","{$model['ress_area']}")
+                            })
+                        </script>
+                        <div class="addressname">
+                            <span>收货人地址:</span>
+                            <select name="ress_city"  id="area1"></select>
+                            <select name="ress_county"   id="area2"></select>
+                            <select name="ress_area"  id="area3"></select>
+                            <textarea name="ress_house"  rows="2" cols="3" placeholder="路名或街道地址，门牌号 ">{$model['ress_house']}</textarea>
+                        </div>
+                        <div class="addressname">
+                            <span>收货人邮编:</span>
+                            <input type="text" name="ress_code" value="{$model['ress_code']}" />
+                        </div>
+                        <div class="addressname">
+                            <span>收货人手机号:</span>
+                            <input type="text" name="ress_phone" value="{$model['ress_phone']}"  />
+                        </div>
+                        <input type="hidden" name="address_id" value="{$model['address_id']}">
+
+                        <div class="addbtn"><input type="submit" id="" name="" value="保存" /></div>
+                    </div>
+                </form>
+
+                <script>
+                    function post(event) {
+                        //阻止表单默认行为
+                        event.preventDefault();
+                        //获取表单所有数据
+                        var data = $('form').serialize();//序列化获取表单数据
+                        $.post("{:url('index/address/post')}", data, function (res) {
+                            if (res.valid) {
+                                //执行成功
+                                layer.msg(res.message);
+                                //跳转到首页
+                                setTimeout(location.href=("{:url('index/address/index')}"),3000);
+                            } else {
+                                //执行失败
+                                layer.msg(res.message);
+                            }
+                        }, 'json')
+                        //阻止表单刷新
+                        return false;
+
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+
+</div>
+{/block}

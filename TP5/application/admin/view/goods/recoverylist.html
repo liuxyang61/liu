@@ -1,0 +1,214 @@
+{extend name="commont" }
+{block name="commont"}
+
+
+<div class=" admin-content">
+
+    <div class="daohang">
+        <ul>
+            <li>
+                <button type="button" class="am-btn am-btn-default am-radius am-btn-xs"><a
+                        href="/admin/index/index">首页</a></button>
+            </li>
+            <li>
+                <button type="button" class="am-btn am-btn-default am-radius am-btn-xs">帮助中心<a
+                        href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close="">×</a></button>
+            </li>
+
+        </ul>
+
+
+    </div>
+
+
+    <div class="admin-biaogelist">
+
+        <div class="listbiaoti am-cf">
+            <ul class="am-icon-flag on"> 回收站</ul>
+
+            <dl class="am-icon-home" style="float: right;"> 当前位置： 首页 > <a href="javascript:;">商品回收站</a></dl>
+
+
+
+
+        </div>
+
+        <div class="am-btn-toolbars am-btn-toolbar am-kg am-cf">
+            <ul>
+                <li>
+                    <div class="am-btn-group am-btn-group-xs">
+                        <select data-am-selected="{btnWidth: 90, btnSize: 'sm', btnStyle: 'default'}">
+                            <option value="b">产品分类</option>
+                            <option value="o">下架</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <div class="am-btn-group am-btn-group-xs">
+                        <select data-am-selected="{btnWidth: 90, btnSize: 'sm', btnStyle: 'default'}">
+                            <option value="b">产品分类</option>
+                            <option value="o">下架</option>
+                        </select>
+                    </div>
+                </li>
+                <li style="margin-right: 0;">
+                    <span class="tubiao am-icon-calendar"></span>
+                    <input type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar"
+                           placeholder="开始日期" data-am-datepicker="{theme: 'success',}" readonly/>
+                </li>
+                <li style="margin-left: -4px;">
+                    <span class="tubiao am-icon-calendar"></span>
+                    <input type="text" class="am-form-field am-input-sm am-input-zm  am-icon-calendar"
+                           placeholder="开始日期" data-am-datepicker="{theme: 'success',}" readonly/>
+                </li>
+
+                <li style="margin-left: -10px;">
+                    <div class="am-btn-group am-btn-group-xs">
+                        <select data-am-selected="{btnWidth: 90, btnSize: 'sm', btnStyle: 'default'}">
+                            <option value="b">产品分类</option>
+                            <option value="o">下架</option>
+                        </select>
+                    </div>
+                </li>
+                <li><input type="text" class="am-form-field am-input-sm am-input-xm" placeholder="关键词搜索"/></li>
+                <li>
+                    <button type="button" class="am-btn am-radius am-btn-xs am-btn-success" style="margin-top: -1px;">
+                        搜索
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+
+        <form class="am-form am-g">
+            <table style="table-layout: fixed" width="100%" class="am-table am-table-bordered am-table-radius am-table-striped">
+                <thead >
+                <tr class="am-success">
+                    <!--<th class="table-check"><input type="checkbox"/></th>-->
+                    <!--<th class="table-id">排序</th>-->
+                    <th class="table-id">ID</th>
+                    <th class="table-title" width="10%" >标题</th>
+                    <th width="5%" class="table-type">分类</th>
+                    <th width="10%" class="table-author am-hide-sm-only">颜色</th>
+                    <th class="table-date am-hide-sm-only">时间</th>
+                    <th class="table-thumb">图片</th>
+                    <th width="163px" class="table-set">操作</th>
+                </tr>
+                </thead>
+                {volist name="data" id="vo"}
+                <tbody>
+                <tr>
+                    <!--<td><input type="checkbox"/></td>-->
+                    <!--<td><input type="text" class="am-form-field am-radius am-input-sm"/></td>-->
+                    <td>{$vo['goods_id']}</td>
+                    <td  style="white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;"><a href="#">{$vo['goods_name']}</a></td>
+                    <td >{$vo['category_name']}</td>
+                    <td  class="am-hide-sm-only">{$vo['goods_color']}</td>
+                    <td class="am-hide-sm-only">{$vo['create_time']}</td>
+                    <td class="am-hide-sm-only">
+                        <?php foreach(explode('|',$vo['goods_src']) as $v){?>
+                        <img style="height: 50px;" src="__STATIC__/../{$v}" alt="">
+                        <?php }?>
+                    </td>
+                    <td>
+                        <div class="am-btn-toolbar">
+                            <div class="am-btn-group am-btn-group-xs">
+                                <button class="am-btn am-btn-default am-btn-xs am-text-secondary am-round"><a
+                                        href="javascript:;"
+                                        class="fa fa-undo" onclick="undo({$vo['goods_id']})">恢复</a></button>
+                                <button class="am-btn am-btn-default am-btn-xs am-text-danger am-round"><a href="javascript:;"class="am-icon-trash-o" style="color:red;" onclick="del({$vo['goods_id']})" >彻底删除</a></button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                {/volist}
+            </table>
+            </table>
+
+            <div class="am-btn-group am-btn-group-xs">
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 删除</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 上架</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 下架</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 移动</button>
+                <button type="button" class="am-btn am-btn-default"><a href="{:url('post')}" class="am-icon-plus">新增</a></button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 移动</button>
+                <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
+            </div>
+
+            <ul class="am-pagination am-fr">
+                <li class="am-disabled"><a href="#">«</a></li>
+                <li class="am-active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+
+
+            <hr/>
+            <p>注：.....</p>
+        </form>
+
+
+        <div class="foods">
+            <ul>
+                版权所有@2015. 模板收集自 <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - More
+                Templates<a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+            </ul>
+            <dl>
+                <a href="" title="返回头部" class="am-icon-btn am-icon-arrow-up"></a>
+            </dl>
+        </div>
+
+
+    </div>
+
+</div>
+
+<script>
+        function del(goods_id) {
+            layer.msg('删除后商品将无法恢复',{
+                time:0,//不自动关闭
+                btn:['确定','取消'],
+                yes:function(index){
+                    layer.close(index);//关闭模态框
+//                alert(1);
+                    $.post('{:url("del")}',{goods_id:goods_id},function (res) {
+                        if(res.valid){
+                            layer.msg(res.message);
+                            location.reload(true);
+                        }else{
+                            layer.msg(res.message);
+                        }
+                    },'json');
+                }
+            })
+        }
+        function undo(goods_id) {
+            layer.msg('确定恢复吗？',{
+                time:0,//不自动关闭
+                btn:['确定','取消'],
+                yes:function(index){
+                    layer.close(index);//关闭模态框
+//                alert(1);
+                    $.post('{:url("undo")}',{goods_id:goods_id},function (res) {
+                        if(res.valid){
+                            layer.msg(res.message);
+                            location.reload(true);
+                        }else{
+                            layer.msg(res.message);
+                        }
+                    },'json');
+                }
+            })
+        }
+</script>
+<style>
+    th{
+        /*text-align: center;*/
+    }
+</style>
+{/block}

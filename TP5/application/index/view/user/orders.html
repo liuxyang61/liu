@@ -1,0 +1,97 @@
+{extend name="common"}
+{block name="common"}
+<link rel="stylesheet" href="__STATIC__/index/css/order.css">
+<div id="content" >
+    <div class="ordercontent main">
+        <div class="orderleft" style="border: 1px solid #DDDDDD">
+            <div class="ordertitle">
+                <h1>个人中心</h1>
+                <ul>
+                    <li>
+                        <a href="{:url('/index/user/index')}">个人信息<span>&gt;</span></a>
+                    </li>
+                    <li>
+                        <a href="{:url('index/user/orders')}">我的订单<span>&gt;</span></a>
+                    </li>
+                    <li >
+                        <a href="{:url('/index/address/index')}">管理地址<span>&gt;</span></a>
+                    </li>
+                    <li>
+                        <a href="{:url('/index/address/post')}">添加地址<span>&gt;</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="orderright" style="width: 980px;border: 1px solid #DDDDDD;padding:0 20px 0 ;margin-right: 20px">
+            <div class="orderlist">
+                <h2>订单详情</h2>
+                <table class="table table-hover" style="table-layout: fixed" width="100%">
+                    <tbody>
+                    {volist name="$orders" id="vo"}
+                    <div id="orders" >
+                        <div class="orders_top">
+                            <span class="orders_time">{$vo['time']}</span>
+                            <span class="orders_time">订单号：{$vo['number']}</span>
+                            <span class="del"><i title="删除订单" order_id="{$vo['order_id']}" onclick="del({$vo['order_id']})" class="fa fa-trash-o"></i></span>
+                        </div>
+                        {volist name="$vo['order_listData']" id="vv"}
+                        <div class="orders_middle">
+                            <div class="goodsImg">
+                                <a class="" href="{:url('/index/index/content',['goods_id'=>$vv['goods_id']])}">
+                                    <img src="__STATIC__/../{$vv['goods_src']}" alt="">
+                                </a>
+                            </div>
+                            <div class="goods_name">
+                                {$vv['goods_name']}
+                            </div>
+                            <div class="goods_num">x{$vv['num']}</div>
+                            <div class="ress_name"><i class="fa fa-user"></i>{$vo['ress_name']}</div>
+                            <div class="total_price">金额￥{$vv['total']} <br> </div>
+                            <div class="status"><a href="{:url('/index/play/index',['order_id'=>$vo['order_id']])}">{$vo['status']}</a><br>在线支付方式</div>
+                            <div class="user_contnet">评价|晒单<br> </div>
+                        </div>
+                        {/volist}
+                    </div>
+                    {/volist}
+                    </tbody>
+                </table>
+
+                <a href="/index/index/index" style="float: right;margin:10px;"  class="btn btn-primary"><i style="padding-right: 8px" class="fa fa-plus-square-o "></i>继续下单</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $("#orders .orders_top").hover(function () {
+            $(this).find('.fa-trash-o').show();
+        }, function () {
+            $(this).find('.fa-trash-o').hide();
+        })
+    })
+
+    function del(id) {
+//        alert('暂时不能删除订单！')
+        layer.msg('确定删除订单吗？',{
+            time:0,//不自动关闭
+            btn:['确定','取消'],
+            yes:function(index){
+                layer.close(index);//关闭模态框
+//                alert(1);
+                $.post('{:url("/index/orders/del")}',{id:id},function (res) {
+                    if(res.valid){
+                        layer.msg(res.message);
+                        setTimeout(function(){
+//                            layer.msg(1)
+                            location.reload(true);
+                        },2000);
+
+                    }else{
+                        layer.msg(res.message);
+                    }
+                },'json');
+            }
+        })
+    }
+</script>
+{/block}}

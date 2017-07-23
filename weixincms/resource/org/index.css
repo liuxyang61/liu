@@ -1,0 +1,62 @@
+body {
+  padding-top: 30px;
+}
+.mobile {
+  padding: 0px;
+  margin: 0;
+  border: 5px solid black;
+  height: 600px;
+  display: flex;
+  background-size: cover;
+  -moz-background-size: cover;
+}
+dl {
+  padding: 0px;
+  margin: 0;
+  display: flex;
+  flex-direction: column-reverse;
+  flex: 1;
+}
+dt {
+  padding: 0px;
+  margin: 0;
+  background: grey;
+  border: 1px solid #f3f3f3;
+  text-align: center;
+  height: 30px;
+  line-height: 2em;
+}
+dd {
+  display: flex;
+  flex-direction: column;
+  background: grey;
+  opacity: 0.5;
+}
+a {
+  text-align: center;
+  padding: 6px;
+  border: 1px solid black;
+  background: #FFFFFF;
+  color: black;
+}
+.topMenu,
+.subMenu {
+  position: relative;
+}
+.topMenu .top,
+.subMenu .top,
+.topMenu .sub,
+.subMenu .sub {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  cursor: pointer;
+  display: none;
+}
+.topMenu:hover .top,
+.subMenu:hover .sub {
+  display: block;
+}
+.url {
+  margin: 30px;
+}
