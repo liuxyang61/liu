@@ -58,14 +58,6 @@
                         <a href="/admin/index">
                             <i class="'fa-w fa fa-comments-o"></i> 系统功能                        </a>
                     </li>
-                    <li class="top_menu">
-                        <a href="http://www.houdunwang.com" target="_blank">
-                            <i class="'fa-w fa fa-cubes"></i> 实战培训                        </a>
-                    </li>
-                    <li class="top_menu">
-                        <a href="http://bbs.houdunwang.com" target="_blank">
-                            <i class="'fa-w fa fa-cubes"></i> 后盾论坛                        </a>
-                    </li>
 
                 </ul>
             </div>

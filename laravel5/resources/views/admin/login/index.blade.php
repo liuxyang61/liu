@@ -18,7 +18,7 @@
 </head>
 <body class="hdcms-login">
 <div class="container logo">
-    <div style="background: url('./images/logo.png') no-repeat; background-size: contain;height: 60px;"></div>
+    <div style="background:  no-repeat; background-size: contain;height: 60px;color: white; font-size: 24px;line-height: 24px">Mr.liu视频站登录</div>
 </div>
 <div class="container well">
     <div class="row ">
@@ -50,11 +50,11 @@
             </form>
         </div>
         <div class="col-md-6">
-            <div style="background: url('http://dev.hdcms.com/resource/images/houdunwang.jpg');background-size:100% ;height:230px;"></div>
+            <div style="background: url('/admin/images/login.jpg');background-size:100% ;height:230px;"></div>
         </div>
     </div>
     <div class="copyright">
-        Powered by hdcms v2.0 © 2014-2019 www.hdcms.com
+        Powered by Mr.liu v2.0 © 2017-2022 www.liuxyang.com
     </div>
 </div>
 </body>
